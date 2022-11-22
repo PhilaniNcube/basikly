@@ -45,7 +45,7 @@ const links = [
           <p className="text-sm text-slate-400 mt-3 lg:mt-8">Copyright &copy; {date.getFullYear()}. Designed by <Link href="https://athenamedia.co.za" className="underline">Athena Media</Link> </p>
         </div>
         <div className="w-full">
-          <nav className="flex space-x-3 text-md text-white">
+          <nav className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3 text-md text-white">
             {links.map((item) => (
               <Link key={item.id} href={item.href} className="font-medium uppercase">{item.title}</Link>
             ))}
