@@ -6,6 +6,7 @@ import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navbar from "../components/Shared/Navbar";
+import Footer from "../components/Shared/Footer";
 
 
 const queryClient = new QueryClient()
@@ -27,6 +28,7 @@ function MyApp({
       <QueryClientProvider client={queryClient}>
         <Navbar />
         <Component {...pageProps} />
+        <Footer />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </SessionContextProvider>
