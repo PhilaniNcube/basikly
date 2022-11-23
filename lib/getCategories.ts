@@ -19,8 +19,22 @@ const getCategories = async () =>  {
 
 }
 
+const getCategoryBySlug = async (slug:string) =>  {
 
-export {getCategories}
+  let { data, error } = await supabase
+  .from('categories')
+  .select('*').eq('slug', slug).single()
+
+  if(error) {
+    throw new Error(error.details)
+  }
+
+  return data as Category
+
+}
+
+
+export {getCategories, getCategoryBySlug}
 
 
 

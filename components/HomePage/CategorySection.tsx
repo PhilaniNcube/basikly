@@ -6,23 +6,23 @@ const CategorySection = () => {
   const categories = [
     {
       id: 1,
-      title: 'Cellphones',
-      href: '/cellphones',
-      image: '/iphone_14_pro.png'
+      title: "Cellphones",
+      href: "/categories/cellphones",
+      image: "/iphone_14_pro.png",
     },
     {
       id: 2,
-      title: 'Tablets',
-      href: '/tablets',
-      image: '/images/ipad_pro.webp'
+      title: "Tablets",
+      href: "/categories/tablets",
+      image: "/images/ipad_pro.webp",
     },
     {
       id: 3,
-      title: 'Laptops',
-      href: '/laptops',
-      image: '/images/macbook_air.png'
+      title: "Laptops",
+      href: "/categories/laptops",
+      image: "/images/macbook_air.png",
     },
-  ]
+  ];
 
   return (
     <section className="py-12 lg:py-20">

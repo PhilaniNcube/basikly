@@ -27,30 +27,30 @@ const links = [
     id: 1,
     title: "Shop",
     href: "/shop",
-    active: router.asPath === "/shop"
+    active: router.asPath === "/shop",
   },
   {
     id: 2,
     title: "cellphones",
-    href: "/cellphones",
-    active: router.asPath === "/cellphones"
+    href: "/categories/cellphones",
+    active: router.asPath === "/categories/cellphones",
   },
   {
     id: 3,
     title: "laptops",
-    href: "/Laptops",
-    active: router.asPath === "/laptops"
+    href: "/categories/laptops",
+    active: router.asPath === "/categories/laptops",
   },
   {
     id: 4,
     title: "tablets",
-    href: "/tablets",
-    active: router.asPath === "/tablets"
+    href: "/categories/tablets",
+    active: router.asPath === "/categories/tablets",
   },
-]
+];
 
   return (
-    <header className={`py-4 px-4 z-50 w-full fixed top-0 left-0 right-0 bg-transparent ${noto_sans.className}`}>
+    <header className={`pt-4 backdrop-blur px-4 z-50 w-full fixed top-0 left-0 right-0 bg-black ${noto_sans.className}`}>
       {/*****Desktop Nav */}
       <nav className="max-w-7xl mx-auto flex justify-between items-center border-b border-slate-400 pb-6">
         <Link href="/" className="font-bold text-white text-2xl uppercase">Basikly</Link>
@@ -61,7 +61,7 @@ const links = [
               href={link.href}
               key={link.id}
               className={`${
-                link.active ? "text-slate-700" : "text-slate-600"
+                link.active ? "text-brown" : "text-slate-600"
               }  text-lg uppercase`}
             >
               {link.title}

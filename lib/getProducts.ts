@@ -11,7 +11,20 @@ const getProducts = async (page: number, size:number) =>  {
   const from = page ? page * limit : 0;
   const to = page ? from + size - 1 : size - 1
 
-  let {data, error} = await (await supabase.from('products').select('*, category(*)').order("slug", {ascending:true}).range(from, to));
+  let {data, error} = await supabase.from('products').select('*, category(*)').order("slug", {ascending:true}).range(from, to);
+
+  if(error) {
+    throw new Error(`There was an error, ${error.details}`)
+  }
+
+  return data as Product[]
+}
+
+
+export const getAllProducts = async () =>  {
+
+
+  let {data, error} = await supabase.from('products').select('*, category(*)').order("slug", {ascending:true});
 
   if(error) {
     throw new Error(`There was an error, ${error.details}`)
@@ -33,6 +46,31 @@ export const getProduct = async (slug:string) =>  {
   return data as Product
 }
 
+
+export const getProductByCategoryId = async (id:string) => {
+
+    let {data, error} = await supabase.from('products').select('*, category(*)').eq('category', id)
+
+      if(error) {
+    throw new Error(`There was an error, ${error.details}`)
+  }
+
+  return data as Product[]
+
+}
+
+
+export const getProductBySlug = async (slug:string) => {
+
+    let {data, error} = await supabase.from('products').select('*, category(*)').eq('slug', slug).single()
+
+      if(error) {
+    throw new Error(`There was an error, ${error.details}`)
+  }
+
+  return data as Product
+
+}
 
 
 export default getProducts

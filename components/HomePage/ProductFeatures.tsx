@@ -6,13 +6,13 @@ const ProductFeatures = () => {
   return (
     <section className={`py-10 ${manrope.className}`}>
       <div className="max-w-7xl mx-auto">
-        <div className="w-full rounded overflow-hidden relative isolate">
+        <div className="w-full rounded min-h-[30vh] overflow-hidden relative isolate">
           <Image
             src="/images/macbook.jpg"
             width={2000}
             height={992}
             alt="Macbook"
-            className="w-full object-cover aspect-[7/2]"
+            className="w-full object-cover h-full"
           />
           <article className="absolute inset-0 flex flex-col justify-center p-10 lg:p-20">
             <h3 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold uppercase">
