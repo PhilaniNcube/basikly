@@ -11,10 +11,11 @@ import supabase from "../../../utils/supabase";
 import { getProduct, Product } from "../../../lib/getProducts";
 import { Switch } from "@headlessui/react";
 import Image from "next/image";
+import { Brand, getBrands } from "../../../lib/getBrands";
 
 const uploadPreset: string = process.env.NEXT_PUBLIC_UPLOAD_PRESET || "";
 
-const Add = ({ categories, product }: { categories: Category[], product: Product }) => {
+const Add = ({ categories, product, brands }: { categories: Category[], product: Product, brands: Brand[] }) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,7 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
       dimensions,
       category,
       specifications,
+      brand,
       published,
       inStock,
       colour,
@@ -92,6 +94,7 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
       typeof dimensions !== "string" ||
       typeof colour !== "string" ||
       typeof category !== "string" ||
+      typeof brand !== "string" ||
       typeof specifications !== "string"
     ) {
       throw new Error("Enter valid title or description");
@@ -115,6 +118,7 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
           dimensions,
           colour,
           category,
+          brand,
           specifications,
           published: productData.published,
           inStock: productData.inStock,
@@ -209,6 +213,31 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
                   aria-hidden="true"
                   className={`${
                     productData.published ? "translate-x-9" : "translate-x-0"
+                  }
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                />
+              </Switch>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <p className="font-medium text-xl text-slate-800">Featured</p>
+              <Switch
+                checked={productData.featured}
+                onChange={() =>
+                  setProductData({
+                    ...productData,
+                    featured: !productData.featured,
+                  })
+                }
+                className={`${
+                  productData.featured ? "bg-teal-600" : "bg-red-700"
+                }
+          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+              >
+                <span className="sr-only">Featured</span>
+                <span
+                  aria-hidden="true"
+                  className={`${
+                    productData.featured ? "translate-x-9" : "translate-x-0"
                   }
             pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                 />
@@ -354,6 +383,53 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
 
             <div className="col-span-6 sm:col-span-3">
               <label
+                htmlFor="colour"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Product colour
+              </label>
+              <input
+                type="text"
+                name="colour"
+                id="colour"
+                value={productData.colour}
+                onChange={(e) =>
+                  setProductData({
+                    ...productData,
+                    colour: e.target.value,
+                  })
+                }
+                autoComplete="product-colour"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+
+            <div className="col-span-6 sm:col-span-3">
+              <label
+                htmlFor="brand"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Brand
+              </label>
+              <select
+                id="brand"
+                name="brand"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value={product?.brand?.id}>
+                  {product?.brand?.title}
+                </option>
+                {isSuccess &&
+                  brands.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.title}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            <div className="col-span-6 sm:col-span-3">
+              <label
                 htmlFor="category"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -374,29 +450,6 @@ const Add = ({ categories, product }: { categories: Category[], product: Product
                     </option>
                   ))}
               </select>
-            </div>
-
-            <div className="col-span-6 sm:col-span-3">
-              <label
-                htmlFor="colour"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Product colour
-              </label>
-              <input
-                type="text"
-                name="colour"
-                id="colour"
-                value={productData.colour}
-                onChange={(e) =>
-                  setProductData({
-                    ...productData,
-                    colour: e.target.value,
-                  })
-                }
-                autoComplete="product-colour"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
             </div>
           </div>
 
@@ -424,11 +477,13 @@ export async function getServerSideProps({
 }) {
   const categories = await getCategories();
   const product = await getProduct(slug)
+   const brands = await getBrands();
 
   return {
     props: {
       categories,
-      product
+      product,
+      brands
     }, // will be passed to the page component as props
   };
 }

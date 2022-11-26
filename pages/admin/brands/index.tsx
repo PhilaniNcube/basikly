@@ -1,30 +1,31 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Dashboard from "../../../components/Shared/Dashboard";
-import { Category, getCategories } from "../../../lib/getCategories";
+import { Brand, getBrandBySlug, getBrands } from "../../../lib/getBrands";
 import supabase from "../../../utils/supabase";
 
-const index = ({categories}:{categories:Category[]}) => {
+const Brands = ({brands}:{brands: Brand[]}) => {
 
-    const router = useRouter();
+  const router = useRouter()
 
-    const create = async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .insert([
-          {
-            slug: Math.random(),
-            title: "Draft Category",
-            description: "",
-          },
-        ])
-        .select("*")
-        .single();
+  const create = async () => {
 
-      console.log({ error, data });
+  const { data, error } = await supabase
+    .from("brand")
+    .insert([
+      {
+        slug: Math.random(),
+        title: "Draft Brand",
+        description: "",
+      },
+    ])
+    .select("*").single();
 
-      router.push(`/admin/categories/${data?.slug}`);
-    };
+    console.log({error, data})
+
+    router.push(`/admin/brands/${data?.slug}`)
+
+  }
 
 
   return (
@@ -34,9 +35,10 @@ const index = ({categories}:{categories:Category[]}) => {
           onClick={create}
           className="bg-teal-700 rounded px-4 py-2 text-white font-medium"
         >
-          Add Category
+          Add Brand
         </button>
       </div>
+
       <div className="w-full mt-4">
         <table className="w-full whitespace-nowrap">
           <thead>
@@ -47,20 +49,20 @@ const index = ({categories}:{categories:Category[]}) => {
             </tr>
           </thead>
           <tbody className="w-full">
-            {categories?.map((category, i) => {
+            {brands?.map((brand, i) => {
               return (
                 <tr
-                  key={category.id}
+                  key={brand.id}
                   className="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white hover:bg-gray-100"
                 >
                   <td className="pl-11">
-                    <div className="flex items-center">{category.title}</div>
+                    <div className="flex items-center">{brand.title}</div>
                   </td>
 
                   <td>
                     <div className="flex items-center">
                       <Link
-                        href={`/admin/categories/${category.slug}`}
+                        href={`/admin/brands/${brand.slug}`}
                         className="bg-blue-700 font-bold mr-3 hover:bg-blue-500 py-2.5 px-5 rounded text-sm leading-3 focus:outline-none text-white uppercase"
                       >
                         View
@@ -76,15 +78,16 @@ const index = ({categories}:{categories:Category[]}) => {
     </Dashboard>
   );
 };
-export default index;
+export default Brands;
 
 
 export async function getServerSideProps() {
-  const categories = await getCategories();
+
+  const brands = await getBrands()
 
   return {
     props: {
-      categories,
+      brands
     }, // will be passed to the page component as props
   };
 }

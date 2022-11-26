@@ -138,6 +138,7 @@ const Products = ({products, page, size}:{products:Product[], page:number, size:
                 <th className="font-normal text-left pl-11">Title</th>
                 <th className="font-normal text-left pl-10">Price</th>
                 <th className="font-normal text-left">Category</th>
+                <th className="font-normal text-left">Brand</th>
                 <th className="font-normal text-left">In Stock</th>
                 <th className="font-normal text-left">Status</th>
                 <th className="font-normal text-left w-32">Actions</th>
@@ -169,6 +170,9 @@ const Products = ({products, page, size}:{products:Product[], page:number, size:
                     </td>
                     <td>
                       <p className="mr-16">{product.category?.title}</p>
+                    </td>
+                    <td>
+                      <p className="mr-16">{product.brand?.title}</p>
                     </td>
                     <td>
                       <p className="mr-16">

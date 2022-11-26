@@ -38,7 +38,15 @@ export interface Database {
           specifications: string
           colour: string
           published: boolean
+          featured: boolean
           inStock: boolean
+          brand: {
+            id: string
+            created_at: string
+            title: string
+            description: string
+            slug:string
+          }
         } // The data expected to be returned from a "select" statement.
         Insert: {
            id: string
@@ -54,6 +62,14 @@ export interface Database {
           colour?: string
           published?: boolean
           inStock?: boolean
+          featured?: boolean
+          brand?: {
+            id: string
+            created_at: string
+            title: string
+            description: string
+            slug:string
+          }
         } // The data expected passed to an "insert" statement.
         Update: {
               id: string
@@ -69,6 +85,14 @@ export interface Database {
           colour?: string
           published?: boolean
           inStock?: boolean
+          featured?: boolean
+          brand?: {
+            id: string
+            created_at: string
+            title: string
+            description: string
+            slug:string
+          }
         } // The data expected passed to an "update" statement.
       }
       categories: {
@@ -123,6 +147,29 @@ export interface Database {
         email?: string
         role?: string
        }
+      }
+      brand: {
+        Row: {
+          id: string
+          created_at: string
+          title: string
+          description: string
+          slug:string
+        }
+        Insert: {
+            id: string
+          created_at: string
+          title?: string
+          description?: string
+          slug?:string
+        }
+        Update: {
+           id: string
+          created_at: string
+          title?: string
+          description?: string
+          slug?:string
+        }
       }
       authorization: {
         Row: {

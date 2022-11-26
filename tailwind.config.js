@@ -8,10 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-         "brown": "#D87D4A",
-         "light-brown": "#FBAF85"
-      }
+        brown: "#D87D4A",
+        "light-brown": "#FBAF85",
+      },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
 };
