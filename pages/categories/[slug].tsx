@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Fragment } from "react";
 import CategoryHeader from "../../components/Category/CategoryHeader";
 import CategoryProductGrid from "../../components/Category/CategoryProductGrid";
-import CategorySection from "../../components/HomePage/CategorySection";
+
 import StorySection from "../../components/HomePage/StorySection";
 import { Category, getCategoryBySlug } from "../../lib/getCategories";
 import { getProductByCategoryId, Product } from "../../lib/getProducts";
@@ -19,7 +19,7 @@ const Category = ({ category, products }: { category :Category, products: Produc
       </Head>
       <CategoryHeader category={category.title} />
       <CategoryProductGrid products={products} />
-      <CategorySection />
+
       <StorySection />
     </Fragment>
   );
