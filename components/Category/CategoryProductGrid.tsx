@@ -8,7 +8,7 @@ import formatCurrency from "../../lib/format";
 const CategoryProductGrid = ({products}:{products:Product[]}) => {
   return (
     <section className={`my-8 ${manrope.className}`}>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {products?.map((product) => (
           <Link
             href={`/products/${product.slug}`}
