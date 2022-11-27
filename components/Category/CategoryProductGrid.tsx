@@ -3,47 +3,33 @@ import Link from "next/link";
 import { Product } from "../../lib/getProducts";
 import { manrope } from "../Shared/Navbar";
 import {motion} from "framer-motion"
+import formatCurrency from "../../lib/format";
 
 const CategoryProductGrid = ({products}:{products:Product[]}) => {
   return (
     <section className={`my-8 ${manrope.className}`}>
-      <div className="max-w-7xl mx-auto px-4">
-        {products.map((product, i) => (
-          <article
-            key={product.id}
-            className={`flex flex-col gap-8 my-4 ${
-              i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
-            }`}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products?.map((product) => (
+          <Link
+            href={`/products/${product.slug}`}
+            className="border border-slate-300 rounded-lg group group-hover:opacity-75 cursor-pointer"
           >
-            <motion.div
-              layoutId={product.id}
-              className="md:w-1/2 w-full rounded overflow-hidden"
-            >
-              <Image
-                className="w-full object-cover rounded-lg"
-                src={product.image.url}
-                width={product.image.width}
-                height={product.image.height}
-                alt={product.title}
-              />
-            </motion.div>
-            <div className="md:w-1/2 w-full rounded overflow-hidden p-4 md:p-10 flex flex-col justify-center lg:p-20">
-              <h3 className="uppercase text-slate-900 text-3xl md:text-5xl font-medium">
+            <Image
+              src={product.image.url}
+              width={product.image.width}
+              height={product.image.height}
+              alt={product.title}
+              className="w-full aspect-square p-4"
+            />
+            <div className="w-full p-1 md:p-4">
+              <p className="text-sm md:text-md lg:text-lg line-clamp-2 md:line-clamp-1 text-slate-600 font-medium">
                 {product.title}
-              </h3>
-
-              <p className="text-sm mt-3 lg:text-md text-slate-600 tracking-wide leading-7">
-                {product.description}
               </p>
-
-              <Link
-                href={`/products/${product.slug}`}
-                className="bg-brown hover:bg-light-brown w-fit px-8 py-3 rounded text-white font-medium uppercase mt-4"
-              >
-                See Product
-              </Link>
+              <p className="text-xs sm:text-md lg:text-2xl text-slate-800 font-extrabold">
+                {formatCurrency(product.price)}
+              </p>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>
