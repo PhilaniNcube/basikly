@@ -3,6 +3,7 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 
 
@@ -24,6 +25,14 @@ const Navbar = () => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
+
+    const {
+      openCart,
+      closeCart,
+      cartQuantity,
+    } = useShoppingCart();
+
+
 
 
 const links = [
@@ -125,9 +134,9 @@ const links = [
                 </svg>
                 <p className="text-sm text-slate-600">Account</p>
               </Link>
-              <Link
-                href="/cart"
-                className="flex flex-col items-center space-y-1"
+              <span
+                onClick={openCart}
+                className="flex flex-col items-center space-y-1 relative isolate"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +154,12 @@ const links = [
                 </svg>
 
                 <p className="text-sm text-slate-600">Cart</p>
-              </Link>
+                {cartQuantity > 0 && (
+                  <small className="absolute -top-3 -right-2 p-1 h-5 w-5 rounded-full bg-teal-600 text-white flex justify-center items-center">
+                    {cartQuantity}
+                  </small>
+                )}
+              </span>
             </div>
           </div>
         </nav>
@@ -182,7 +196,10 @@ const links = [
               </svg>
               <p className="text-sm text-slate-600">Account</p>
             </Link>
-            <Link href="/cart" className="flex flex-col items-center space-y-1">
+            <span
+              onClick={openCart}
+              className="flex flex-col items-center space-y-1 relative isolate"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -199,7 +216,12 @@ const links = [
               </svg>
 
               <p className="text-sm text-slate-600">Cart</p>
-            </Link>
+              {cartQuantity > 0 && (
+                <small className="absolute -top-3 -right-2 p-1 h-5 w-5 rounded-full bg-teal-600 text-white flex justify-center items-center">
+                  {cartQuantity}
+                </small>
+              )}
+            </span>
           </ul>
 
           <div>

@@ -6,9 +6,13 @@ import { manrope } from "../Shared/Navbar";
 import {motion } from "framer-motion"
 import {ChevronRightIcon} from "@heroicons/react/24/outline"
 import Link from "next/link";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 const ProductDetails = ({product}:{product: Product}) => {
 
+  const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useShoppingCart()
+
+  const quantity = getItemQuantity(product)
 
 
   return (
@@ -62,7 +66,7 @@ const ProductDetails = ({product}:{product: Product}) => {
            Specifications: {product.specifications}
           </p>
 
-          <button className="w-fit px-8 py-2 rounded bg-brown text-white text-xl lg:text-2xl mt-6">
+          <button onClick={() => increaseCartQuantity(product)} className="w-fit px-8 py-2 rounded bg-brown text-white text-xl lg:text-2xl mt-6">
             Add To Cart
           </button>
         </div>
