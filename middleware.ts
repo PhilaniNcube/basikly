@@ -36,13 +36,13 @@ export async function middleware(req: NextRequest) {
   redirectUrl.pathname = '/';
   redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
   return NextResponse.next()
-  } else if (data?.role_id.role !== 'admin') {
+  } else if (data?.role_id?.role !== 'admin') {
         const redirectUrl = req.nextUrl.clone();
   redirectUrl.pathname = '/';
   redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
   return NextResponse.next()
-  } else if(data?.role_id.role === 'admin') {
-    console.log('This is an admin user')
+  } else if(data?.role_id?.role === 'admin') {
+    console.log('This is an admin user', data)
     return NextResponse.next()
   } else {
       // Auth condition not met, redirect to home page.
