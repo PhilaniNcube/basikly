@@ -13,6 +13,7 @@ import formatCurrency from "../../lib/format";
 const Products = () => {
 
   const [query, setQuery] = useState('')
+  const [sort, setSort] = useState('')
 
   const {data:brands, isLoading:brandsLoading, isSuccess:brandsSuccess} = useQuery(['brands'], getBrands)
   const {data:categories, isLoading:categoriesLoading, isSuccess:categoriesSuccess} = useQuery(['categories'], getCategories)
@@ -24,7 +25,9 @@ const Products = () => {
        products?.filter(
          (product) =>
            product.title?.toLowerCase().includes(query.toLowerCase()) ||
-           product.description?.toLowerCase().includes(query.toLowerCase())
+           product.description?.toLowerCase().includes(query.toLowerCase()) ||
+           product.category?.title?.toLowerCase().includes(query.toLowerCase()) ||
+           product?.brand.title?.toLowerCase().includes(query.toLowerCase())
        ),
      [query, products]
    );
@@ -52,6 +55,7 @@ const Products = () => {
                   <>
                     {brands.map((brand) => (
                       <p
+                        onClick={() => setQuery(brand.title)}
                         className="text-md text-slate-600 rounded-lg py-2 hover:bg-slate-200 px-3 font-medium"
                         key={brand.id}
                       >
@@ -77,6 +81,7 @@ const Products = () => {
                   <>
                     {categories.map((category) => (
                       <p
+                        onClick={() => setQuery(category.title)}
                         className="text-md text-slate-600 rounded-lg py-2 hover:bg-slate-200 px-3 font-medium"
                         key={category.id}
                       >

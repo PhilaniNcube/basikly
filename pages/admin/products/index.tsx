@@ -134,14 +134,14 @@ const Products = ({products, page, size}:{products:Product[], page:number, size:
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-20 w-full text-sm leading-none text-gray-600">
-                <th className="font-normal text-left pl-4">#</th>
+
                 <th className="font-normal text-left pl-11">Title</th>
                 <th className="font-normal text-left pl-10">Price</th>
                 <th className="font-normal text-left">Category</th>
                 <th className="font-normal text-left">Brand</th>
                 <th className="font-normal text-left">In Stock</th>
                 <th className="font-normal text-left">Status</th>
-                <th className="font-normal text-left w-32">Actions</th>
+                <th className="font-normal text-left w-24">Actions</th>
               </tr>
             </thead>
             <tbody className="w-full">
@@ -153,7 +153,7 @@ const Products = ({products, page, size}:{products:Product[], page:number, size:
                     key={product.id}
                     className="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white hover:bg-gray-100"
                   >
-                    <td className="pl-4"></td>
+
                     <td className="pl-11">
                       <div className="flex items-center">
                         <img
