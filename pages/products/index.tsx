@@ -38,7 +38,7 @@ const Products = () => {
       <div
         className={`flex flex-col lg:flex-row gap-5 py-20 px-4 mx-auto ${manrope.className}`}
       >
-        <aside className="w-full  lg:w-[20vw] flex flex-col items-start ">
+        <aside className="w-full hidden lg:w-[20vw] lg:flex flex-col items-start ">
           <div className="w-full border-b px-3 border-slate-300 py-3">
             <p className="text-xl text-slate-700 font-bold">Filters</p>
           </div>
@@ -107,11 +107,11 @@ const Products = () => {
                       alt={product.title}
                       className="w-full aspect-square p-4"
                     />
-                    <div className="w-full p-4">
-                      <p className="text-lg line-clamp-1 text-slate-600 font-medium">
+                    <div className="w-full p-1 md:p-4">
+                      <p className="text-sm md:text-md lg:text-lg line-clamp-2 md:line-clamp-1 text-slate-600 font-medium">
                         {product.title}
                       </p>
-                      <p className="text-2xl text-slate-800 font-extrabold">
+                      <p className="text-xs sm:text-md lg:text-2xl text-slate-800 font-extrabold">
                         {formatCurrency(product.price)}
                       </p>
                     </div>
