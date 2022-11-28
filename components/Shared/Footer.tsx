@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getCategories } from "../../lib/getCategories";
 import { manrope } from "./Navbar";
 
 const Footer = () => {
@@ -35,8 +37,10 @@ const links = [
   },
 ];
 
+const {data:categories, isLoading, isSuccess} = useQuery(['categories'], getCategories)
+
   return (
-    <footer className={`bg-black ${manrope.className}`}>
+    <footer className={`bg-black ${manrope.className} px-4`}>
       <div className="max-w-7xl mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="w-full">
           <h3 className="text-white text-xl md:text-2xl font-extrabold">Basikly</h3>
@@ -46,8 +50,8 @@ const links = [
         </div>
         <div className="w-full">
           <nav className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3 text-md text-white">
-            {links.map((item) => (
-              <Link key={item.id} href={item.href} className="font-medium uppercase">{item.title}</Link>
+            {isSuccess && categories.map((item) => (
+              <Link key={item.id} href={`/categories/${item.slug}`} className="font-medium uppercase">{item.title}</Link>
             ))}
           </nav>
         </div>

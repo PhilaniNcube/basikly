@@ -8,23 +8,20 @@ const noto_sans = Noto_Sans({
   weight: ["400", "800"],
 });
 
-const signUp = () => {
+const SignIn = () => {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
-  const router = useRouter()
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    const {  email, password } = Object.fromEntries(
+    const { email, password } = Object.fromEntries(
       new FormData(e.currentTarget)
     );
 
-    if (
-      typeof email !== "string" ||
-      typeof password !== "string"
-    ) {
+    if (typeof email !== "string" || typeof password !== "string") {
       throw new Error("Please submit valid data");
     }
 
@@ -40,11 +37,9 @@ const signUp = () => {
     } else if (data) {
       alert("Logged In.");
 
-      router.push('/')
+      router.push("/");
     }
     setLoading(false);
-
-
   };
 
   return (
@@ -57,8 +52,6 @@ const signUp = () => {
             Sign In
           </h1>
           <form onSubmit={handleSubmit} className="w-full mt-20">
-
-
             <div className="flex flex-col mt-2">
               <label
                 className="text-md text-slate-600 font-bold"
@@ -108,4 +101,4 @@ const signUp = () => {
     </div>
   );
 };
-export default signUp;
+export default SignIn;
